@@ -1,42 +1,27 @@
 <template>
-    <div class="bg-blue-200 border border-blue-800 rounded-md p-4 my-6 mx-2">
-        <div class="flex items-center">
-            <span class="text-blue-500 mr-2 text-xl">💱</span>
-            <span class="text-blue-700 text-sm mr-1">Tasa de cambio BCV :</span>
-            <span style="font-family: 'quicksand';" class="text-blue-700 text-sm"><strong> 1 USD = {{ dataBCV ?
-                dataBCV.price : 'Cargando...' }}
-                    VES</strong></span>
-            <span style="font-family: 'quicksand';" class="text-blue-700 text-sm"></span>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-blue-200 border border-blue-800 rounded-3xl p-6 mt-5">
+            <div class="flex items-start flex-col">
+
+                <span style="font-family: 'quicksand';" class="text-blue-700 text-sm mr-1">Tasa de cambio BCV : <strong>
+                        1 USD = {{ dataBCV ?
+                            dataBCV.price : 'Cargando...' }}
+                        VES</strong></span>
+                <span style="font-family: 'quicksand';" class="text-blue-700 text-sm">Ultima actualizacion: <strong>{{
+                    dataBCV ? dataBCV.last_update : 'Cargando' }}</strong></span>
+                <!-- <button 
+                @click="clearFilters"
+                class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              >
+                Limpiar Filtros
+              </button> -->
+            </div>
         </div>
     </div>
-
 </template>
 
 <script setup>
-import axios from 'axios'
-import { onMounted, ref } from 'vue'
-import { toast } from 'vue3-toastify'
+import { useBCV } from '../composables/useFetchBCV'
 
-const dolarAPI = 'https://pydolarve.org/api/v1/dollar?page=bcv&monitor=usd';
-const dataBCV = ref(null)
-
-
-const getDolarBCV = async () => {
-    try {
-        const response = await axios.get(dolarAPI)
-        dataBCV.value = response.data;
-
-        console.log(dataBCV);
-    } catch (error) {
-        toast.error('ERROR: No se pudo obtener el valor del BCV: ' + error, {
-            theme: 'dark',
-            icon: '❌',
-        })
-    }
-}
-
-onMounted(() => {
-    getDolarBCV()
-})
-
+const { dataBCV } = useBCV()
 </script>

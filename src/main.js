@@ -7,8 +7,14 @@ import App from './App.vue'
 // Componentes locales
 import ExchangeBCV from './components/ExchangeBCV.vue';
 import StatisticsCards from './components/StatisticsCards.vue';
+import DashboardHeader from './components/DashboardHeader.vue';
+import ProductsCards from './components/ProductsCards.vue';
 
 const app = createApp(App);
+
 app.component('ExchangeBCV',ExchangeBCV);
 app.component('StatisticsCards',StatisticsCards);
+app.component('DashboardHeader',DashboardHeader);
+app.component('ProductsCards',ProductsCards);
+
 app.mount('#app')
