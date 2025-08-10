@@ -11,8 +11,8 @@
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">Total de Productos</dt>
-                                <dd class="text-2xl font-bold text-gray-900">{{ totalProduct ? totalProduct : 'Cargando'  }}</dd>
+                                <dt class="text-md sm:text-md md:text-lg lg:text-lg font-medium text-gray-500 truncate">Total de Productos</dt>
+                                <dd style="font-family: 'quicksand';" class="text-3xl sm:text-2xl md:text-4xl lg:text-4xl font-bold text-gray-900">{{ totalProduct ? totalProduct : '0'  }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -29,8 +29,8 @@
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">Categorias Unicas </dt>
-                                <dd class="text-2xl font-bold text-gray-900">23</dd>
+                                <dt class="text-md sm:text-md md:text-lg lg:text-lg font-medium text-gray-500 truncate">Categorias Unicas </dt>
+                                <dd style="font-family: 'quicksand';" class="text-3xl sm:text-2xl md:text-4xl lg:text-4xl font-bold text-gray-900">{{ category }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -47,8 +47,8 @@
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">Precio Promedio</dt>
-                                <dd class="text-2xl font-bold text-gray-900">23</dd>
+                                <dt class="text-md sm:text-md md:text-lg lg:text-lg font-medium text-gray-500 truncate">Precio Promedio</dt>
+                                <dd style="font-family: 'quicksand';" class="text-3xl sm:text-2xl md:text-4xl lg:text-4xl font-bold text-gray-900">23</dd>
                             </dl>
                         </div>
                     </div>

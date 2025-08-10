@@ -10,7 +10,7 @@ const getBCV = async () => {
         const response = await axios.get(dolarAPI)
         dataBCV.value = response.data;
 
-        console.log(dataBCV);
+        //console.log(dataBCV);
     } catch (error) {
         toast.error(`ERROR: No se pudo obtener el valor del BCV: ${error}`, {
             theme: 'dark',
