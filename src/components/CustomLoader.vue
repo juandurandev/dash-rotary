@@ -2,7 +2,7 @@
     <div class="spinner"></div>
 </template>
 
-<style>
+<style scoped>
 .spinner {
     width: 56px;
     height: 56px;

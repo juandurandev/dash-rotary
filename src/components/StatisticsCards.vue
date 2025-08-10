@@ -5,12 +5,14 @@
                 <div class="p-5">
                     <div class="flex items-center">
                         <div class="flex-shrink-0 bg-pink-100 p-3 rounded-4xl">
-                            <div class="h-8 w-8 text-blue-500 text-2xl"></div>
+                            <div class="h-8 w-8 text-blue-500 text-2xl">
+                                <img src="../assets/paquete-abierto.png" alt="">
+                            </div>
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Total de Productos</dt>
-                                <dd class="text-2xl font-bold text-gray-900">23</dd>
+                                <dd class="text-2xl font-bold text-gray-900">{{ totalProduct ? totalProduct : 'Cargando'  }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -21,7 +23,9 @@
                 <div class="p-5">
                     <div class="flex items-center">
                         <div class="flex-shrink-0 bg-blue-100 p-3 rounded-4xl">
-                            <div class="h-8 w-8 text-blue-500 text-2xl"></div>
+                            <div class="h-8 w-8 text-blue-500 text-2xl">
+                                <img src="../assets/etiqueta.png" alt="">
+                            </div>
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
@@ -37,7 +41,9 @@
                 <div class="p-5">
                     <div class="flex items-center">
                         <div class="flex-shrink-0 bg-purple-200 p-3 rounded-4xl">
-                            <div class="h-8 w-8  text-blue-500 text-2xl"></div>
+                            <div class="h-8 w-8  text-blue-500 text-2xl">
+                                <img src="../assets/dolar.png" alt="">
+                            </div>
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
@@ -53,5 +59,9 @@
 </template>
 
 <script setup>
-
+defineProps({
+  totalProduct: Number,
+  category: Number,
+  average:Number
+})
 </script>

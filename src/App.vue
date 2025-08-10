@@ -5,7 +5,7 @@
 <template>
   <DashboardHeader />
   <ExchangeBCV />
-  <StatisticsCards />
+  
   <ProductsCards />
 </template>
 
