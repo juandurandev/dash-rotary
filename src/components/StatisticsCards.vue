@@ -7,7 +7,7 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0 bg-pink-100 p-3 rounded-4xl">
                             <div class="h-8 w-8 text-blue-500 text-2xl">
-                                <img src="../assets/paquete-abierto.webp" alt="">
+                                <img src="../assets/paquete-abierto.webp" loading="lazy" alt="">
                             </div>
                         </div>
                         <div class="ml-5 w-0 flex-1">
@@ -25,7 +25,7 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0 bg-blue-100 p-3 rounded-4xl">
                             <div class="h-8 w-8 text-blue-500 text-2xl">
-                                <img src="../assets/etiqueta.webp" alt="">
+                                <img src="../assets/etiqueta.webp" loading="lazy" alt="">
                             </div>
                         </div>
                         <div class="ml-5 w-0 flex-1">
@@ -43,7 +43,7 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0 bg-purple-200 p-3 rounded-4xl">
                             <div class="h-8 w-8  text-blue-500 text-2xl">
-                                <img src="../assets/dolar.webp" alt="">
+                                 src="../assets/dolar.webp" alt="">
                             </div>
                         </div>
                         <div class="ml-5 w-0 flex-1">

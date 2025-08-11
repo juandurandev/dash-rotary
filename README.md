@@ -1,5 +1,40 @@
-# Vue 3 + Vite
+# Dashboard Retail
+![Badge en Desarollo](https://img.shields.io/badge/STATUS-%20COMPLETADO-green)
+![Badge en Licencia](https://img.shields.io/badge/LICENSE-%20MIT-green)
+## 📁 Requerimientos
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Antes de comenzar, asegúrate de tener instalado:
+- Node.js versión 18 o superior
+- npm o yarn como gestor de paquetes
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## ⬇️ Instalacion
+- Clonar el proyecto
+~~~
+git clone https://github.com/juandurandev/dash-rotary
+~~~
+- Clonar el proyecto
+~~~
+cd control-dashboard
+~~~
+- Instalar dependencias
+~~~
+npm install
+~~~
+- Ejecutar
+~~~
+npm run dev
+~~~
+
+## Live demo
+https://dash-rotary.vercel.app/
+
+## Imagenes
+![Captura de pantalla](./public/dashboard.png)
+
+## Decisiones Técnicas
+#### Manejo del estado local
+  - No se uso pinia por simplicidad 
+#### Libreria toastify
+  - Para las notificaciones push
+#### Separacion de componentes
+  - Para facilitar el mantenimiento
