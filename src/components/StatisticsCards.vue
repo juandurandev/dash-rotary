@@ -1,6 +1,7 @@
 <template>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 pt-2">
+        <div style="font-family: 'quicksand';" class="text-2xl m-2 font-bold">Estadísticas</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-2">
             <div class="bg-white overflow-hidden shadow border border-gray-300 rounded-4xl hover:shadow-lg transition-shadow duration-300">
                 <div class="p-5">
                     <div class="flex items-center">

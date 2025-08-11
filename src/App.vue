@@ -3,9 +3,7 @@
 </script>
 
 <template>
-  <DashboardHeader />
-  
-  
+  <DashboardHeader /> 
   <ProductsCards />
 </template>
 
