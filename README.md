@@ -14,7 +14,7 @@ git clone https://github.com/juandurandev/dash-rotary
 ~~~
 - Clonar el proyecto
 ~~~
-cd control-dashboard
+cd dash-rotary
 ~~~
 - Instalar dependencias
 ~~~
