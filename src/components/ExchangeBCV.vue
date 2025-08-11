@@ -2,12 +2,12 @@
     <div class="flex items-start flex-col">
         <div style="font-family: 'quicksand';" class="font-bold text-sm">
             <div class="flex items-center justify-center border border-gray-200 p-2 bg-gray-200 rounded-lg">
-                1 USD <img class="h-5 w-5 ml-2" src="../assets/estados-unidos.png" alt="" />
+                1 USD <img class="h-5 w-5 ml-2" src="../assets/estados-unidos.webp" alt="" />
             </div>
             <div class="flex items-center justify-center border border-gray-200 p-2 bg-gray-200 rounded-lg mt-1">
                 {{ dataBCV ?
                     dataBCV.price : 'Cargando...' }}
-                VES <img class="h-5 w-5 ml-2" src="../assets/venezuela.png" alt="">
+                VES <img class="h-5 w-5 ml-2" src="../assets/venezuela.webp" alt="">
             </div>
         </div>
     </div>

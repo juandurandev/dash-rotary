@@ -7,11 +7,12 @@
         <div class="w-full flex justify-center mb-6">
             <button style="font-family: 'quicksand';" @click="showFilter"
             class="flex justify-center items-center font-bold text-gray-500 px-3 py-1 rounded cursor-pointer bg-gray-100 rounded-xl border border-gray-300 hover:bg-gray-200 duration-300">
-            Filtrar <img class="ml-2 h-5 w-5" src="../assets/filtrar.png" alt="">
+            Filtrar <img class="ml-2 h-5 w-5" src="../assets/filtrar.webp" alt="">
         </button>
         </div>
 
         <div v-if="filteredProducts.length >= 0" class="bg-white shadow rounded-lg px-6 pb-6 mb-6">
+            
             <div v-if="showFilters" class="grid grid-cols-1 md:grid-cols-2 bg-white-200 border border-gray-300 rounded-3xl p-3">
                 <div class="p-2">
                     <label for="categories"
@@ -23,6 +24,11 @@
                         <option v-for="category in categories" :value="category">{{ categoriesFormat(category) }}
                         </option>
                     </select>
+
+                    <button style="font-family: 'quicksand';" @click="cleanFilters"
+            class="flex justify-center items-center font-bold text-gray-500 px-3 py-1 mt-4 rounded cursor-pointer bg-gray-100 rounded-xl border border-gray-300 hover:bg-gray-200 duration-300">
+            Limpiar Filtros <img class="ml-2 h-5 w-5" src="../assets/borrar.webp" alt="">
+        </button>
                 </div>
                 <div class="flex flex-col items-center  w-full">
 
@@ -48,7 +54,11 @@
                     </div>
 
                 </div>
+                
+                
+                
             </div>
+            
 
             <div class="flex justify-between items-center mb-4 ml-2">
                 <h2 style="font-family: 'quicksand';" class="text-2xl mt-3 font-medium text-gray-900">
@@ -88,7 +98,7 @@
             <div v-if="totalPages > 1" class="flex justify-center mt-6 space-x-2">
                 <button @click="actualPage--" :disabled="actualPage === 1"
                     class="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 cursor-pointer">
-                    <img class="h-3 w-3" src="../assets/flecha.png" alt="">
+                    <img class="h-3 w-3" src="../assets/flecha.webp" alt="">
                 </button>
 
                 <button v-for="page in totalPages" :key="page" @click="actualPage = page"
@@ -98,7 +108,7 @@
 
                 <button @click="actualPage++" :disabled="actualPage === totalPages"
                     class="  px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 cursor-pointer ">
-                    <img class="h-3 w-3" src="../assets/flecha-correcta.png" alt="">
+                    <img class="h-3 w-3" src="../assets/flecha-correcta.webp" alt="">
                 </button>
             </div>
         </div>
@@ -111,7 +121,7 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
 import axios from 'axios';
-import { showErrorMessage } from '../utils/toastUtils';
+import { showErrorMessage,showSuccess } from '../utils/toastUtils';
 import { getMaxPrice } from '../utils/mathUtils';
 import { categoriesFormat } from '../composables/useCategoriesFormat';
 import { priceFormatVES } from '../composables/usePriceFormatVES';
@@ -208,12 +218,54 @@ const showFilter = () => {
     showFilters.value = !showFilters.value;
 }
 
+const cleanFilters = () => {
+    minPrice.value = 0;
+    maxPrice.value = getMaxPrice(products.value);
+    selectedCategory.value = '';
+ showSuccess('Filtros limpiados con exito!')
+}
+
 // devuelve a la pagina principal basado si cambia esas variables
 watch([maxPrice, minPrice, selectedCategory], () => {
     actualPage.value = 1;
 })
 
+// localstorage watch
+
+watch(minPrice,(value) => {
+    localStorage.setItem('minPrice',value);
+})
+
+watch(maxPrice,(value) => {
+    localStorage.setItem('maxPrice',value);
+})
+
+watch(selectedCategory,(value) => {
+    localStorage.setItem('selectedCategory',value);
+})
+
+
 onMounted(() => {
+
+    const savedCategory = localStorage.getItem('selectedCategory');
+    const savedMinPrice = localStorage.getItem('minPrice');
+    const savedMaxPrice = localStorage.getItem('maxPrice');
+
+
+    if (savedCategory) {
+        selectedCategory.value = savedCategory;
+    }
+
+    if (savedMinPrice) {
+        minPrice.value = savedMinPrice;
+    }
+
+    if (savedMaxPrice) {
+        maxPrice.value = savedMaxPrice;
+    }
+
+
+
     getProducts()
     getCategories()
 })
