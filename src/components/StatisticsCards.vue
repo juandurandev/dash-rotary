@@ -48,7 +48,7 @@
                         <div class="ml-5 w-0 flex-1">
                             <dl>
                                 <dt class="text-md sm:text-md md:text-lg lg:text-lg font-medium text-gray-500 truncate">Precio Promedio</dt>
-                                <dd style="font-family: 'quicksand';" class="text-3xl sm:text-2xl md:text-4xl lg:text-4xl font-bold text-gray-900">23</dd>
+                                <dd style="font-family: 'quicksand';" class="text-3xl sm:text-2xl md:text-4xl lg:text-4xl font-bold text-gray-900">${{ average }}</dd>
                             </dl>
                         </div>
                     </div>

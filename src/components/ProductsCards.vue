@@ -1,13 +1,12 @@
 <template>
     <div class="max-w-7xl mx-auto  rounded-4xl mt-2">
         <StatisticsCards class="mt-3" v-if="categories && filteredProducts" :totalProduct="filteredProducts.length"
-            :category="categoriesCounts" />
+            :category="categoriesCounts" :average="averagePrice" />
         <div v-if="filteredProducts.length >= 0" class="bg-white shadow rounded-lg px-6 pb-6 mb-6">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-lg font-medium text-gray-900">
                     Productos {{ filteredProducts.length }} encontrados
                 </h2>
-
                 <div class="">
                     <label for="categories"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccionar
@@ -22,28 +21,25 @@
                 <div class="max-w-3xl">
                     <label for="minmax-range"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio Minimo</label>
-                    <input id="minmax-range" v-model="minPrice" type="range" 
+                    <input id="minmax-range" v-model="minPrice" type="range"
                         class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
-                        ${{ minPrice }}
-                        <label for="minmax-range"
+                    ${{ minPrice }}
+                    <label for="minmax-range"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio Maximo</label>
-                    <input id="minmax-range" v-model="maxPrice" :max="getMaxPrice(products)"  type="range" 
+                    <input id="minmax-range" v-model="maxPrice" :max="getMaxPrice(products)" type="range"
                         class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
-                         ${{ maxPrice }}
-                         
+                    ${{ maxPrice }}
                 </div>
-                
             </div>
-
             <div v-if="filteredProducts.length === 0" class="flex items-center justify-center mx-auto">
                 No existe ese producto
             </div>
-
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
-                <div v-for="product in filteredProducts" :key="product.id"
+                <div v-for="product in paginatedProducts" :key="product.id"
                     class="bg-white border border-gray-200 rounded-4xl overflow-hidden hover:shadow-lg transition-shadow duration-300">
                     <div class="aspect-square bg-gray-100 flex items-center justify-center p-4">
-                        <img :src="product.image" :alt="product.title" loading="lazy" class="max-w-full max-h-full object-contain" />
+                        <img :src="product.image" :alt="product.title" loading="lazy"
+                            class="max-w-full max-h-full object-contain" />
                     </div>
 
                     <div class="p-4">
@@ -55,36 +51,49 @@
                         </p>
                         <div class="space-y-1 mb-3">
                             Precios
-                            <p class="text-lg font-bold text-blue-600">
-                               ${{ product.price }} USD
+                            <p class="text-lg font-medium text-emerald-600">
+                                ${{ product.price }} USD
                             </p>
                             <p class="text-sm text-gray-600">
-                               {{ priceFormatVES(product.price * 131) }}
+                                {{ priceFormatVES(product.price * dataBCV.price) }}
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
+            <div v-if="totalPages > 1" class="flex justify-center mt-6 space-x-2">
+                <button @click="actualPage--" :disabled="actualPage === 1"
+                    class="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 cursor-pointer">
+                    ⬅️
+                </button>
 
+                <button v-for="page in totalPages" :key="page" @click="actualPage = page"
+                    :class="['px-3 py-1 rounded cursor-pointer', actualPage === page ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300']">
+                    {{ page }}
+                </button>
+
+                <button @click="actualPage++" :disabled="actualPage === totalPages"
+                    class="  px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 cursor-pointer ">
+                    ➡️
+                </button>
+            </div>
         </div>
-
         <div v-else class="max-w-7xl mx-auto flex items-center justify-center my-2">
             <CustomLoader />
         </div>
     </div>
-
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import axios from 'axios';
 import { showErrorMessage } from '../utils/toastUtils';
 import { getMaxPrice } from '../utils/mathUtils';
 import { categoriesFormat } from '../composables/useCategoriesFormat';
 import { priceFormatVES } from '../composables/usePriceFormatVES';
+import { useBCV } from '../composables/useFetchBCV'
 
-
-
+const { dataBCV } = useBCV()
 const products = ref([]);
 const categories = ref(null);
 const selectedCategory = ref('');
@@ -93,6 +102,10 @@ const uniqueCategories = productsAPI + '/categories';
 const minPrice = ref(0);
 const maxPrice = ref(0);
 
+const actualPage = ref(1);
+const itemsPerPage = ref(5);
+
+// getting the products from the api and initialize maxPrice for the filter
 const getProducts = async () => {
     try {
         const response = await axios.get(productsAPI)
@@ -104,6 +117,7 @@ const getProducts = async () => {
     }
 }
 
+// getting categories from the api
 const getCategories = async () => {
     try {
         const response = await axios.get(uniqueCategories)
@@ -114,13 +128,14 @@ const getCategories = async () => {
     }
 }
 
+// aplicacion y modificacion de filtros
 const filteredProducts = computed(() => {
     let filtered = products.value;
-    
+
     if (selectedCategory.value) {
-       filtered = products.value.filter(product => product.category === selectedCategory.value);
+        filtered = products.value.filter(product => product.category === selectedCategory.value);
     }
-     
+
     if (minPrice.value !== null) {
         filtered = filtered.filter(product => product.price >= minPrice.value);
     }
@@ -132,11 +147,42 @@ const filteredProducts = computed(() => {
     return filtered;
 })
 
+
+const paginatedProducts = computed(() => {
+    const start = (actualPage.value - 1) * itemsPerPage.value;
+    const end = start + itemsPerPage.value;
+    return filteredProducts.value.slice(start, end);
+});
+
+// cantidad de paginas
+const totalPages = computed(() => {
+    const total = Math.ceil(filteredProducts.value.length / itemsPerPage.value);
+    return total
+});
+
+// stadistica de categories
 const categoriesCounts = computed(() => {
-    if (!selectedCategory || selectedCategory.value === '') {
-        return categories.value.length;
-    }
-    return [selectedCategory.value].length;
+    
+    const productCategories = filteredProducts.value.map(product => product.category);
+    const uniques = new Set(productCategories);
+
+    return uniques.size;
+})
+
+// estadisticas para calcular el promedio del precio de los productos, si se quiere cambiar por pagina
+// cambiar filteredProducts por paginatedProducts
+const averagePrice = computed(() => {
+    if (filteredProducts.value.length === 0) return 0;
+    //console.log(filteredProducts);
+    const initialValue = 0;
+    const productSum = filteredProducts.value.reduce((accum, product) => accum + product.price, initialValue);
+    const average = productSum / filteredProducts.value.length;
+    return average.toFixed(2);
+})
+
+// devuelve a la pagina principal basado si cambia esas variables
+watch([maxPrice, minPrice, selectedCategory], () => {
+    actualPage.value = 1;
 })
 
 onMounted(() => {
