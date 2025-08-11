@@ -44,7 +44,7 @@
                         <label for="minmax-range"
                             class="block  text-sm font-medium text-gray-900 dark:text-white">Precio
                             Maximo</label>
-                        <input id="minmax-range" v-model="maxPrice" :max="getMaxPrice(products)" type="range"
+                        <input id="minmax-range" v-model="maxPrice" :min="100" :max="getMaxPrice(products)" type="range"
                             class="w-full  h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
                         <br>
                         <p class="font-medium ml-1">${{ maxPrice }}</p>
@@ -65,22 +65,22 @@
                     class="bg-white border border-gray-200 rounded-4xl overflow-hidden hover:shadow-lg transition-shadow duration-300">
                     <div class="aspect-square bg-gray-100 flex items-center justify-center p-4">
                         <img :src="product.image" :alt="product.title" loading="lazy"
-                            class="max-w-full max-h-full object-contain" />
+                            class="max-w-full max-h-full object-contain transition-transform duration-300 transform hover:scale-105" />
                     </div>
 
                     <div class="p-4">
                         <h3 class="text-md font-medium text-gray-900 mb-2 h-10 " :title="product.title">{{ product.title
                             }}
                         </h3>
-                        <p class="text-xs text-gray-500 my-3 capitalize">
+                        <p class="text-xs text-gray-500  mb-2 capitalize">
                             {{ categoriesFormat(product.category) }}
                         </p>
                         <div class="space-y-1 mb-3">
                             Precios
-                            <p class="text-lg font-medium text-emerald-600">
-                                ${{ product.price }} USD
+                            <p style="font-family: 'quicksand';" class="text-lg font-bold  text-emerald-600">
+                                $ {{ product.price }} USD
                             </p>
-                            <p class="text-sm text-gray-600">
+                            <p class="text-sm text-gray-500 font-medium ml-1">
                                 {{ priceFormatVES(product.price * dataBCV.price) }}
                             </p>
                         </div>
